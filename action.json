@@ -1,0 +1,26 @@
+{
+  "actions": [
+    {
+      "description": "Default Welcome Intent",
+      "name": "MAIN",
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      },
+      "intent": {
+        "name": "actions.intent.MAIN",
+        "trigger": {
+          "queryPatterns": [
+            "talk to yodaspeak"
+          ]
+        }
+      }
+    }
+  ],
+  "conversations": {
+    "yoda-speak": {
+      "name": "yodaspeak",
+      "url": "https://b713cacf.ngrok.io/translate?format=json",
+      "fulfillmentApiVersion": 2
+    }
+  }
+}
