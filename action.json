@@ -1,11 +1,7 @@
 {
   "actions": [
     {
-      "description": "Default Welcome Intent",
       "name": "MAIN",
-      "fulfillment": {
-        "conversationName": "yodaspeak"
-      },
       "intent": {
         "name": "actions.intent.MAIN",
         "trigger": {
@@ -13,13 +9,32 @@
             "talk to yodaspeak"
           ]
         }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      }
+    },
+    {
+      "name": "TIME",
+      "intent": {
+        "name": "yodaspeak.intent.TIME",
+        "trigger": {
+            "queryPatterns": [
+              "what time is it, Yoda?",
+              "what time is it",
+              "what's the time"
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
       }
     }
   ],
   "conversations": {
     "yoda-speak": {
       "name": "yodaspeak",
-      "url": "https://b713cacf.ngrok.io/translate?format=json",
+      "url": "https://194fb7c2.ngrok.io/translate?format=json",
       "fulfillmentApiVersion": 2
     }
   }

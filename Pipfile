@@ -13,6 +13,7 @@ ipython = "*"
 "suds-py3" = "*"
 "boto3" = "*"
 awscli = "*"
+"psycopg2" = "*"
 
 
 [dev-packages]

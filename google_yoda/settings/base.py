@@ -82,12 +82,6 @@ WSGI_APPLICATION = 'google_yoda.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
@@ -135,3 +129,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static-compiled")
 
 # Uncomment if using Heroku
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+AWS_KEY = os.environ.get('AWS_KEY', None)

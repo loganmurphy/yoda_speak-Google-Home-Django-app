@@ -1,3 +1,19 @@
 from django.db import models
+from django.conf import settings
 
-# Create your models here.
+
+class Padawan(models.Model):
+    userID = models.CharField(max_length=250, unique=True)
+    def __str__ (self):
+      return self.userID
+
+class YodaPhrase(models.Model):
+    phrase = models.TextField(null=True)
+    translation = models.TextField(null=True)
+    jedi = models.BooleanField(default=False)
+    sith = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    padawan = models.ForeignKey(Padawan, on_delete=models.CASCADE)
+
+    def __str__ (self):
+      return self.phrase, self.translation, self.jedi, self.sith, self.created
