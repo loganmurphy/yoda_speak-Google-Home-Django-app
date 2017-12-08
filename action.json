@@ -29,12 +29,41 @@
       "fulfillment": {
         "conversationName": "yodaspeak"
       }
+    },
+    {
+      "name": "WISDOM",
+      "intent": {
+        "name": "yodaspeak.intent.WISDOM",
+        "trigger": {
+            "queryPatterns": [
+              "wisdom"
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      }
+    },
+    {
+      "name": "FORTUNE",
+      "intent": {
+        "name": "yodaspeak.intent.FORTUNE",
+        "trigger": {
+            "queryPatterns": [
+              "future",
+              "fortune",
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      }
     }
   ],
   "conversations": {
     "yoda-speak": {
       "name": "yodaspeak",
-      "url": "https://194fb7c2.ngrok.io/translate?format=json",
+      "url": "https://1b39b503.ngrok.io/translate?format=json",
       "fulfillmentApiVersion": 2
     }
   }
