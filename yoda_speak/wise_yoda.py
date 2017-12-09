@@ -13,8 +13,6 @@ polly_client = boto3.client('polly')
 bucket = s3.Bucket('my-video-project')
 
 def yoda_wisdom (request):
-    # q = 'Talk to yodaspeak about wisdom'
-    # returns random yoda wise quote
     wise_yoda_quotes = [
         'https://s3.amazonaws.com/my-video-project/mp3/beware.wav', 'https://s3.amazonaws.com/my-video-project/mp3/feeltheforce.wav',
         'https://s3.amazonaws.com/my-video-project/mp3/for_my_ally.wav', 'https://s3.amazonaws.com/my-video-project/mp3/powerful.wav',
@@ -36,8 +34,6 @@ def yoda_wisdom (request):
                 {
                   'simpleResponse': {
                     "ssml": "<speak><audio src=\"{}\"></audio></speak>".format(quote)
-
-                    # "ssml": "<speak><audio src={}>{}</audio></speak>".format(yoda_phrase.url, result)
                   }
                 }
               ]
@@ -86,7 +82,6 @@ def my_fortune (request, age):
             ]
         fortune = random.choice(fortune_list)
     elif age < 20:
-
         fortune_list = [
                 "https://s3.amazonaws.com/my-video-project/mp3/Move.mp3", "https://s3.amazonaws.com/my-video-project/mp3/han-solo.mp3",
                 "https://s3.amazonaws.com/my-video-project/mp3/seagulls.mp3", "https://s3.amazonaws.com/my-video-project/mp3/good_things.mp3"

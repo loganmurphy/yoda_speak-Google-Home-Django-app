@@ -20,9 +20,25 @@
         "name": "yodaspeak.intent.TIME",
         "trigger": {
             "queryPatterns": [
-              "what time is it, Yoda?",
+              "what time is it yoda",
               "what time is it",
               "what's the time"
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      }
+    },
+    {
+      "name": "DAY",
+      "intent": {
+        "name": "yodaspeak.intent.DAY",
+        "trigger": {
+            "queryPatterns": [
+              "what day is it yoda",
+              "what day is it today",
+              "what day is it"
           ]
         }
       },
@@ -51,7 +67,81 @@
         "trigger": {
             "queryPatterns": [
               "future",
-              "fortune",
+              "fortune"
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      }
+    },
+    {
+      "name": "OPTIONS",
+      "intent": {
+        "name": "yodaspeak.intent.OPTIONS",
+        "trigger": {
+            "queryPatterns": [
+              "what can I ask yoda",
+              "what can I say"
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      }
+    },
+    {
+      "name": "SEAGULL",
+      "intent": {
+        "name": "yodaspeak.intent.SEAGULL",
+        "trigger": {
+            "queryPatterns": [
+              "sing the seagull song"
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      }
+    },
+    {
+      "name": "BIRTHDAY",
+      "intent": {
+        "name": "yodaspeak.intent.BIRTHDAY",
+        "trigger": {
+            "queryPatterns": [
+              "It's my birthday yoda",
+              "sing happy birthday"
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      }
+    },
+    {
+      "name": "CHRISTMAS",
+      "intent": {
+        "name": "yodaspeak.intent.CHRISTMAS",
+        "trigger": {
+            "queryPatterns": [
+              "It's christmas yoda",
+              "sing merry christmas"
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "yodaspeak"
+      }
+    },
+    {
+      "name": "SITH_OR_JEDI",
+      "intent": {
+        "name": "yodaspeak.intent.SITH_OR_JEDI",
+        "trigger": {
+            "queryPatterns": [
+              "am I a sith or jedi",
+              "am I on the darkside or the lightside of the force"
           ]
         }
       },
@@ -63,7 +153,7 @@
   "conversations": {
     "yoda-speak": {
       "name": "yodaspeak",
-      "url": "https://1b39b503.ngrok.io/translate?format=json",
+      "url": "https://cfd93cd5.ngrok.io/translate?format=json",
       "fulfillmentApiVersion": 2
     }
   }

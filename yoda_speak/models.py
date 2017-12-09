@@ -4,6 +4,7 @@ from django.conf import settings
 
 class Padawan(models.Model):
     userID = models.CharField(max_length=250, unique=True)
+
     def __str__ (self):
       return self.userID
 
@@ -17,4 +18,7 @@ class YodaPhrase(models.Model):
     padawan = models.ForeignKey(Padawan, on_delete=models.CASCADE)
 
     def __str__ (self):
-      return self.phrase, self.translation, self.url, self.jedi, self.sith, self.created
+      return self.phrase
+
+
+  # , self.translation, self.url, self.jedi, self.sith, self.created

@@ -8,7 +8,7 @@ class PadawanAdmin(admin.ModelAdmin):
 
 @admin.register(YodaPhrase)
 class YodaPhraseAdmin(admin.ModelAdmin):
-    list_display = ('phrase', 'translation', 'jedi', 'sith', 'created', 'padawan')
+    list_display = ('phrase', 'translation', 'jedi', 'sith', 'created', 'url', 'padawan')
     list_filter = ('created', )
     search_fields = ('phrase', )
 

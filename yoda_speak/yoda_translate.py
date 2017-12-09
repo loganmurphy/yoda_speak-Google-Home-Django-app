@@ -80,10 +80,6 @@ def get_phrase(request):
             else:
                 print('aleady created', yoda_phrase.url)
 
-    # fear/darkside mp3
-    # padawan.objects.set_yodaphrase.all()
-    # YodaPhrase.objects.filter(padawan=padawan)
-
 
     # django storage package
     # yp = YodaPhrase(text=untranslated_text, padawan=padawan)
@@ -114,3 +110,11 @@ def get_phrase(request):
     r = Response(response)
     r['Google-Assistant-API-Version'] = 'v2'
     return r
+
+def sith_vs_jedi(response):
+    # determines if asker is jedi or sith
+    padawan, created = Padawan.objects.get_or_create(userID=user_id)
+    print(padawan.userID)
+# padawan.objects.set_yodaphrase.all()
+# YodaPhrase.objects.filter(padawan=padawan)
+# sith vs jedi points

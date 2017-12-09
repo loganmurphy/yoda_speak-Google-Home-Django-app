@@ -1,47 +1,64 @@
 from rest_framework.response import Response
-
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-
-import datetime
-import pytz
+from rest_framework.decorators import api_view
+from yoda_speak.models import YodaPhrase, Padawan
 
 from django.utils import timezone
 
-# from yoda_speak.models import YodaPhrase, Padawan
 from yoda_speak.wise_yoda import yoda_wisdom, get_age, my_fortune
-from yoda_speak.yoda_translate import get_phrase
+from yoda_speak.yoda_sing import seagull_song
+from yoda_speak.yoda_time import ask_time, ask_day
+from yoda_speak.yoda_translate import get_phrase, sith_vs_jedi
 
-# add webtokens for authentication(either from Google or from my web app)
+# add webtokens for authentication(either from Google or from my web app)?
 # import serializers?
 
 @api_view(['GET', 'POST'])
 def google_endpoint (request):
     print('request', request.data)
-    time_queries = ["what time is it Yoda", "what time is it", "what's the time"]
 
+    # test out the query
+    user_id = request.data['user']['userId']
+    padawan = Padawan.objects.get(userID=userID)
+    print(padawan.id)
+    # padawan.objects.set_yodaphrase.all()
+    YodaPhrase.objects.filter(padawan_id=padawan.id)
+
+    time_queries = ["what time is it Yoda", "what time is it", "what's the time"]
+    day_queries = ["what day is it Yoda", "what day is it today", "what day is it"]
+    dark_vs_light_queries = [
+            'am i a jedi or sith', 'am i a jedi', 'am i a sith', 'am i on the lightside of the force',
+            'am i on the darkside of the force', 'am i lightside', 'am i darkside'
+        ]
     # if request.method == 'GET':
     #     return start_conversation(request)
+    requested = request.data['inputs'][0]['rawInputs'][0]['query']
+    print(requested.lower(), dark_vs_light_queries)
 
     if request.data['inputs'][0]['intent'] == 'actions.intent.MAIN':
         return start_conversation(request)
     else:
-        if (request.data['inputs'][0]['arguments'][0]['rawText'].lower()) in time_queries:
-            print('hi!')
+        if (requested.lower() == 'what can I say' or 'options' in requested.lower()):
+            return get_options(request)
+        elif (requested.lower() in time_queries):
             return ask_time(request)
-        elif ('wisdom' in request.data['inputs'][0]['arguments'][0]['rawText'].lower()):
+        elif (requested.lower() in day_queries):
+            return ask_day(request)
+        elif ('wisdom' in requested.lower()):
             return yoda_wisdom(request)
-        elif ('fortune' in request.data['inputs'][0]['arguments'][0]['rawText'].lower()):
+        elif ('fortune' in requested.lower()):
             return get_age(request)
-        elif (request.data['inputs'][0]['arguments'][0]['rawText'].isdigit() == True):
-            age = int(request.data['inputs'][0]['arguments'][0]['rawText'])
+        elif (requested.isdigit() == True):
+            age = int(requested)
             return my_fortune(request, age)
+        elif ('seagull song' in requested):
+            return seagull_song(request)
+        elif (requested.lower() in dark_vs_light_queries):
+            print(requested.lower())
+            return sith_vs_jedi(request)
         else:
             return get_phrase(request)
 
-
 def start_conversation (request):
-    # bucket api key
     response = {
       'expectUserResponse': True,
       'expectedInputs': [
@@ -52,7 +69,6 @@ def start_conversation (request):
               'items': [
                 {
                   'simpleResponse': {
-                    # mp3: Yoda voice
                     "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/yoda_help.mp3\">Help you I can, yes.</audio></speak>"
                   }
                 }
@@ -67,52 +83,11 @@ def start_conversation (request):
     r['Google-Assistant-API-Version'] = 'v2'
     return r
 
-
-def ask_time (request):
-    tz_now = timezone.now()
-    central = pytz.timezone('US/Central')
-    now = tz_now.astimezone(central).time().isoformat()
-    temp_now = now[0:5]
-    now = temp_now
-    print(int(now[0:2]))
-    # add in some comments depending on what time of day it is.
-
-    if int(now[0:2]) < 7 and int(now[0:2]) > 4:
-        yoda_message = 'Early it is, much time for training, still have we!'
-        print('Early it is, much time for training, still have we!')
-    elif int(now[0:2]) >= 12 and int(now[0:2]) < 13:
-        yoda_message = 'For lunch, time it is.'
-        print('For lunch, time it is.')
-    elif int(now[0:2]) >= 22 or int(now[0:2]) <= 2:
-        yoda_message = 'Late it is. Sleep must I.'
-        print('Late it is. Sleep must I.')
-    else:
-        yoda_message = 'To start training, time it is.'
-        print('To start training, time it is.')
-
-    print('this is the time', now)
-
-    if int(now[0:2]) > 12:
-        yoda_time = str(int(now[0:2]) - 12) + now[2:]
-    else:
-        yoda_time = now
-    print(yoda_time)
-    response = polly_client.synthesize_speech(
-        OutputFormat='mp3',
-        Text='<speak><amazon:effect name="whispered" vocal-tract-length="-500%">\
-            <prosody rate="x-slow" pitch="x-low" volume= "x-loud">Right now, {} it is. {}<break time=".25s"/></prosody>\
-            </amazon:effect></speak>'.format(yoda_time, yoda_message),
-        TextType='ssml',
-        VoiceId='Matthew'
-    )
-
-    response_id = response['ResponseMetadata']['RequestId']
-    response_blob = response['AudioStream']
-    upload = s3.meta.client.upload_fileobj(response_blob, 'my-video-project', 'mp3/{}.mp3'.format(response_id))
-    yoda_mp3_link = "mp3/{}.mp3".format(response_id)
-    object_acl = s3.ObjectAcl('my-video-project', '{}'.format(yoda_mp3_link))
-    boto_response = object_acl.put(ACL='public-read')
-
+def get_options(request):
+    # options = """"Teach you to speak like me, can I. If you are Sith or Jedi, tell you can I.
+    #   What day it is, ask me. What time it is, ask me. Your fortune, ask me.
+    #   For wisdom, ask me. Happy birthday, for you I will sing. Merry Christmas, too will I sing."""
+    options = "https://s3.amazonaws.com/my-video-project/mp3/%22Teach+you+to+speak+like+me%2C+can+I.+If+you+are+Sith+or+Jedi%2C+tell+you+can+I.%0A++++++What+day+it+is%2C+ask+me.+What+time+it+is%2C+ask+me.+Your+fortune%2C+ask+me.%0A++++++For+wisdom%2C+ask+me.+Happy+birthday%2C+for+you+I+will+sing.+Merry+Christmas%2C+too+will+I+sing..mp3"
     response = {
       'expectUserResponse': True,
       'expectedInputs': [
@@ -123,7 +98,8 @@ def ask_time (request):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/{}.mp3\">Right now, {} it is. {}</audio></speak>".format(response_id, yoda_time, yoda_message)
+                    # mp3: Yoda voice
+                    "ssml": "<speak><audio src=\"{}\">Options, yes, many options have you.</audio></speak>".format(options)
                   }
                 }
               ]
@@ -136,26 +112,6 @@ def ask_time (request):
     r = Response(response)
     r['Google-Assistant-API-Version'] = 'v2'
     return r
-
-
-# Here are all of the conversations I will have.
-
-# def option:
-    #list available conversation options
-
-
-# def ask_day (request):
-#     # what day is it?
-#
-# def happy_bday (request):
-#     # happy birthday yoda_style
-        #happy birthday to you, happy birthday to you, you look like a wookie. And you smell like one too.
-# def christmas_carol (request):
-#     # we wish you a merry christmas
-#
-# def yoda_reminder (request):
-    # add reminders to your calendar
-
 
 # @api_view(['GET'])
 # def yoda_get:
