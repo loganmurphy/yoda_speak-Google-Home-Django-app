@@ -7,7 +7,8 @@ from django.utils import timezone
 from yoda_speak.wise_yoda import yoda_wisdom, get_age, my_fortune
 from yoda_speak.yoda_sing import seagull_song, happy_bday, christmas_carol
 from yoda_speak.yoda_time import ask_time, ask_day
-from yoda_speak.yoda_translate import get_phrase, sith_vs_jedi
+from yoda_speak.yoda_translate import get_phrase
+# , sith_vs_jedi
 
 # add webtokens for authentication(either from Google or from my web app)?
 # import serializers?
@@ -16,11 +17,11 @@ from yoda_speak.yoda_translate import get_phrase, sith_vs_jedi
 def google_endpoint (request):
     print('request', request.data)
 
-    user_id = request.data['user']['userId']
-    padawan = Padawan.objects.get(userID = user_id)
-    # yoda_phrase = YodaPhrase.objects.filter(padawan = padawan).order_by('-created')[:1]
-    jedi_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
-    sith_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
+    # user_id = request.data['user']['userId']
+    # padawan = Padawan.objects.get(userID = user_id)
+    # # yoda_phrase = YodaPhrase.objects.filter(padawan = padawan).order_by('-created')[:1]
+    # jedi_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
+    # sith_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
 
     time_queries = ["what time is it Yoda", "what time is it", "what's the time"]
     day_queries = ["what day is it Yoda", "what day is it today", "what day is it"]
@@ -58,8 +59,8 @@ def google_endpoint (request):
             return happy_bday(request)
         elif (requested.lower() in christmas_queries):
             return christmas_carol(request)
-        elif (requested.lower() in dark_vs_light_queries):
-            return sith_vs_jedi(request, jedi_score, sith_score)
+        # elif (requested.lower() in dark_vs_light_queries):
+        #     return sith_vs_jedi(request, jedi_score, sith_score)
         elif (requested.lower() in swear_word_check):
             return darkside(request)
         elif (requested.lower() in end_conversation_commands):
