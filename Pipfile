@@ -16,6 +16,7 @@ awscli = "*"
 "psycopg2" = "*"
 gunicorn = "*"
 dj-database-url = "==0.2.1"
+postgres = "*"
 
 
 [dev-packages]
