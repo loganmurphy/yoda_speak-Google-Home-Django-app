@@ -16,7 +16,7 @@ CLIENT = Client("http://www.yodaspeak.co.uk/webservice/yodatalk.php?wsdl")
 def get_phrase(request):
     print(request.data['inputs'])
     user_id = request.data['user']['userId']
-    # untranslated_text = request.data['inputs'][0]['arguments'][0]['textValue']
+    untranslated_text = request.data['inputs'][0]['arguments'][0]['textValue']
     result = CLIENT.service.yodaTalk(untranslated_text)
     words = sorted(untranslated_text.replace(",", "").replace("?", "").replace(".", "").replace("!", "").lower().split())
     result_list = sorted(result.replace(",", "").replace("?", "").replace(".", "").replace("!", "").lower().split())
