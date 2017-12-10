@@ -14,7 +14,7 @@ ipython = "*"
 "boto3" = "*"
 awscli = "*"
 "psycopg2" = "*"
-gunicorn==19.6.0
+gunicorn = "*"
 
 
 [dev-packages]
