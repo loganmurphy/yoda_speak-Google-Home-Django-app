@@ -37,8 +37,8 @@ def google_endpoint (request):
     #     return start_conversation(request)
 
     requested = request.data['inputs'][0]['rawInputs'][0]['query']
-    if request.data:
-    # if request.data['inputs'][0]['intent'] == 'actions.intent.MAIN':
+
+    if request.data['inputs'][0]['intent'] == 'actions.intent.MAIN':
         return start_conversation(request)
     else:
         if (requested.lower() == 'what can I say' or 'options' in requested.lower()):
