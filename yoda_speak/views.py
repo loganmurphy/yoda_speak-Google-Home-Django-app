@@ -35,9 +35,8 @@ def google_endpoint (request):
     end_conversation_commands = ['end', 'finish', 'stop', 'end conversation', 'finish conversation', 'stop conversation']
     # if request.method == 'GET':
     #     return start_conversation(request)
-    requested = request.data
 
-    # requested = request.data['inputs'][0]['rawInputs'][0]['query']
+    requested = request.data['inputs'][0]['rawInputs'][0]['query']
     if request.data:
     # if request.data['inputs'][0]['intent'] == 'actions.intent.MAIN':
         return start_conversation(request)
