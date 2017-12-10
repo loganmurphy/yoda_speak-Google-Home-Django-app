@@ -1,1 +1,1 @@
-web: python manage.py prodserver
+web: gunicorn google_yoda.wsgi --log-file -
