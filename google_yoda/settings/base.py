@@ -29,6 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', None)
 ALLOWED_HOSTS = [
       'localhost',
       '.ngrok.io',
+      'yoda-speak-google-actions.herokuapp.com'
     ]
 
 
