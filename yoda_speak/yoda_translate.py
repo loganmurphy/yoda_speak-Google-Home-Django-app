@@ -5,9 +5,8 @@ import boto3
 import botocore
 
 from yoda_speak.models import YodaPhrase, Padawan
-
-s3 = boto3.resource('s3')
-polly_client = boto3.client('polly')
+s3 = boto3.resource('s3', region_name='us-west-2')
+polly_client = boto3.client('polly', region_name='us-west-2')
 
 bucket = s3.Bucket('my-video-project')
 
