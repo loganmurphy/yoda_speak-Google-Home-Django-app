@@ -19,6 +19,3 @@ class YodaPhrase(models.Model):
 
     def __str__ (self):
       return self.phrase
-
-
-  # , self.translation, self.url, self.jedi, self.sith, self.created

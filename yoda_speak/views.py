@@ -5,7 +5,7 @@ from yoda_speak.models import YodaPhrase, Padawan
 from django.utils import timezone
 
 from yoda_speak.wise_yoda import yoda_wisdom, get_age, my_fortune
-from yoda_speak.yoda_sing import seagull_song
+from yoda_speak.yoda_sing import seagull_song, happy_bday, christmas_carol
 from yoda_speak.yoda_time import ask_time, ask_day
 from yoda_speak.yoda_translate import get_phrase, sith_vs_jedi
 
@@ -16,12 +16,11 @@ from yoda_speak.yoda_translate import get_phrase, sith_vs_jedi
 def google_endpoint (request):
     print('request', request.data)
 
-    # test out the query
     user_id = request.data['user']['userId']
-    padawan = Padawan.objects.get(userID=userID)
-    print(padawan.id)
-    # padawan.objects.set_yodaphrase.all()
-    YodaPhrase.objects.filter(padawan_id=padawan.id)
+    padawan = Padawan.objects.get(userID = user_id)
+    # yoda_phrase = YodaPhrase.objects.filter(padawan = padawan).order_by('-created')[:1]
+    jedi_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
+    sith_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
 
     time_queries = ["what time is it Yoda", "what time is it", "what's the time"]
     day_queries = ["what day is it Yoda", "what day is it today", "what day is it"]
@@ -29,10 +28,13 @@ def google_endpoint (request):
             'am i a jedi or sith', 'am i a jedi', 'am i a sith', 'am i on the lightside of the force',
             'am i on the darkside of the force', 'am i lightside', 'am i darkside'
         ]
+    swear_word_check = ['fuck', 'shit', 'dick', 'pussy', 'cunt', 'asshole', 'whore', 'bitch']
+    birthday_queries = ['birthday', 'happy birthday', 'sing happy birthday']
+    christmas_queries = ['christmas', 'merry christmas', 'sing merry christmas']
+    end_conversation_commands = ['end', 'finish', 'stop', 'end conversation', 'finish conversation', 'stop conversation']
     # if request.method == 'GET':
     #     return start_conversation(request)
     requested = request.data['inputs'][0]['rawInputs'][0]['query']
-    print(requested.lower(), dark_vs_light_queries)
 
     if request.data['inputs'][0]['intent'] == 'actions.intent.MAIN':
         return start_conversation(request)
@@ -52,9 +54,16 @@ def google_endpoint (request):
             return my_fortune(request, age)
         elif ('seagull song' in requested):
             return seagull_song(request)
+        elif (requested.lower() in birthday_queries):
+            return happy_bday(request)
+        elif (requested.lower() in christmas_queries):
+            return christmas_carol(request)
         elif (requested.lower() in dark_vs_light_queries):
-            print(requested.lower())
-            return sith_vs_jedi(request)
+            return sith_vs_jedi(request, jedi_score, sith_score)
+        elif (requested.lower() in swear_word_check):
+            return darkside(request)
+        elif (requested.lower() in end_conversation_commands):
+            return end_conversation(request)
         else:
             return get_phrase(request)
 
@@ -98,8 +107,58 @@ def get_options(request):
               'items': [
                 {
                   'simpleResponse': {
-                    # mp3: Yoda voice
                     "ssml": "<speak><audio src=\"{}\">Options, yes, many options have you.</audio></speak>".format(options)
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+
+    r = Response(response)
+    r['Google-Assistant-API-Version'] = 'v2'
+    return r
+
+def darkside(request):
+    darkside = "https://s3.amazonaws.com/my-video-project/mp3/darkside.webm"
+    response = {
+      'expectUserResponse': True,
+      'expectedInputs': [
+        {
+          'possibleIntents': {'intent': 'actions.intent.TEXT'},
+          'inputPrompt': {
+            'richInitialPrompt': {
+              'items': [
+                {
+                  'simpleResponse': {
+                    "ssml": "<speak><audio src=\"{}\">Beware the darkside of the force.</audio></speak>".format(darkside)
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+
+    r = Response(response)
+    r['Google-Assistant-API-Version'] = 'v2'
+    return r
+
+def end_conversation(response):
+    response = {
+      'expectUserResponse': False,
+      'expectedInputs': [
+        {
+          'possibleIntents': {'intent': 'actions.intent.TEXT'},
+          'inputPrompt': {
+            'richInitialPrompt': {
+              'items': [
+                {
+                  'simpleResponse': {
+                    "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/end_conversation.mp3\"></audio></speak>"
                   }
                 }
               ]

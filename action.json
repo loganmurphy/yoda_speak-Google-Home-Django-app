@@ -153,7 +153,7 @@
   "conversations": {
     "yoda-speak": {
       "name": "yodaspeak",
-      "url": "https://cfd93cd5.ngrok.io/translate?format=json",
+      "url": "https://3f7ed038.ngrok.io/translate?format=json",
       "fulfillmentApiVersion": 2
     }
   }

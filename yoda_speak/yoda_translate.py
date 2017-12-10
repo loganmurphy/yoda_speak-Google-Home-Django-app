@@ -45,7 +45,9 @@ def get_phrase(request):
 
                 object_acl = s3.ObjectAcl('my-video-project', '{}'.format(yoda_mp3_link))
                 boto_response = object_acl.put(ACL='public-read')
+                # yoda_phrase.url = "https://s3.amazonaws.com/my-video-project/mp3/{}.mp3".format(response_id)
                 yoda_phrase.url = "https://s3.amazonaws.com/my-video-project/mp3/{}.mp3".format(response_id)
+
                 yoda_phrase.save()
 
             else:
@@ -74,7 +76,8 @@ def get_phrase(request):
 
                 object_acl = s3.ObjectAcl('my-video-project', '{}'.format(yoda_mp3_link))
                 boto_response = object_acl.put(ACL='public-read')
-                yoda_phrase.url = response_id
+                # yoda_phrase.url = response_id
+                yoda_phrase.url = "https://s3.amazonaws.com/my-video-project/mp3/{}.mp3".format(response_id)
                 yoda_phrase.save()
 
             else:
@@ -97,7 +100,8 @@ def get_phrase(request):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/{}.mp3\">{}</audio></speak>".format(yoda_phrase.url, result)
+                    # "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/{}.mp3\">{}</audio></speak>".format(yoda_phrase.url, result)
+                    "ssml": "<speak><audio src=\"{}\">{}</audio></speak>".format(yoda_phrase.url, result)
                   }
                 }
               ]
@@ -111,10 +115,35 @@ def get_phrase(request):
     r['Google-Assistant-API-Version'] = 'v2'
     return r
 
-def sith_vs_jedi(response):
-    # determines if asker is jedi or sith
-    padawan, created = Padawan.objects.get_or_create(userID=user_id)
-    print(padawan.userID)
-# padawan.objects.set_yodaphrase.all()
-# YodaPhrase.objects.filter(padawan=padawan)
-# sith vs jedi points
+def sith_vs_jedi(response, jedi_score, sith_score):
+    jedi_score = jedi_score
+    sith_score = sith_score
+    print(jedi_score, sith_score)
+    if jedi_score > sith_score:
+        response = "https://s3.amazonaws.com/my-video-project/mp3/you_are_a_jedi.mp3"
+    else:
+        response = "https://s3.amazonaws.com/my-video-project/mp3/you_are_a_sith.mp3"
+
+    response = {
+      'expectUserResponse': True,
+      'expectedInputs': [
+        {
+          'possibleIntents': {'intent': 'actions.intent.TEXT'},
+          'inputPrompt': {
+            'richInitialPrompt': {
+              'items': [
+                {
+                  'simpleResponse': {
+                    "ssml": "<speak><audio src=\"{}\"></audio></speak>".format(response)
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+
+    r = Response(response)
+    r['Google-Assistant-API-Version'] = 'v2'
+    return r
