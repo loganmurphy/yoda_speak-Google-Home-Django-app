@@ -23,6 +23,11 @@ polly_client = boto3.client(
 
 bucket = s3.Bucket('my-video-project')
 
+
+for bucket in s3.buckets.all():
+    print(bucket.name)
+print('just tested')
+
 CLIENT = Client("http://www.yodaspeak.co.uk/webservice/yodatalk.php?wsdl")
 
 

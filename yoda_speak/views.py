@@ -39,9 +39,9 @@ def google_endpoint (request):
 
 
     # test Heroku DB
-    user_id = request.data['user']['userId']
-    padawan, created = Padawan.objects.get_or_create(userID=user_id)
-    print('DATABASE TEST HERE!!!!', padawan)
+    # user_id = request.data['user']['userId']
+    # padawan, created = Padawan.objects.get_or_create(userID=user_id)
+    # print('DATABASE TEST HERE!!!!', padawan)
 
     print (requested)
     if intent == 'actions.intent.MAIN' or requested in restart_conversation_commands:
