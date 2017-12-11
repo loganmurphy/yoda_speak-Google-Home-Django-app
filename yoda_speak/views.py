@@ -33,12 +33,11 @@ def google_endpoint (request):
     birthday_queries = ['birthday', 'happy birthday', 'sing happy birthday']
     christmas_queries = ['christmas', 'merry christmas', 'sing merry christmas']
     end_conversation_commands = ['end', 'finish', 'stop', 'end conversation', 'finish conversation', 'stop conversation']
-    # if request.method == 'GET':
-    #     return start_conversation(request)
-
+    restart_conversation_commands = ['hey yoda', 'hey, yoda']
     requested = request.data['inputs'][0]['rawInputs'][0]['query']
-
-    if request.data['inputs'][0]['intent'] == 'actions.intent.MAIN':
+    intent = request.data['inputs'][0]['intent']
+    
+    if intent == 'actions.intent.MAIN' or requested in restart_conversation_commands:
         return start_conversation(request)
     else:
         if (requested.lower() == 'what can I say' or 'options' in requested.lower()):

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-# import dj_database_url
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(
@@ -81,19 +81,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'google_yoda.wsgi.application'
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '{{ d154lfgjapcu2v }}',
-        'USER': '{{ rdjlskrdbncwyp:d5197ce71d34d89d5ac1e2dc6a5278c6e92cba85c3255c708ffd8181ecb4c1a9 }}',
-        'PASSWORD': '{{ db_p@ssword }}',
-        'HOST': 'ec2-107-22-160-199.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-# DATABASES['default'] = dj_database_url.config(
-#   default='postgres://rdjlskrdbncwyp:d5197ce71d34d89d5ac1e2dc6a5278c6e92cba85c3255c708ffd8181ecb4c1a9@ec2-107-22-160-199.compute-1.amazonaws.com:5432/d154lfgjapcu2v')
-#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd154lfgjapcu2v',
+#         'USER': 'rdjlskrdbncwyp:d5197ce71d34d89d5ac1e2dc6a5278c6e92cba85c3255c708ffd8181ecb4c1a9',
+#         'HOST': 'ec2-107-22-160-199.compute-1.amazonaws.com',
+#         'PORT': 5432,
+#     }
+# }
 
 
 # Password validation
@@ -144,3 +140,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static-compiled")
 
 AWS_KEY = os.environ.get('AWS_KEY', None)
 AWS_DEFAULT_REGION = 'us-west-2'
+
+DATABASES['default'] = dj_database_url.config()
