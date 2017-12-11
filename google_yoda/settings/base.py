@@ -127,7 +127,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static-compiled")
 # Uncomment if using Heroku
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-AWS_KEY = os.environ.get('AWS_KEY', None)
+AWS_KEY = os.environ.get('AWS_ACCESS_KEY_ID', None)
+AWS_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_DEFAULT_REGION = 'us-west-2'
 
 DATABASES = {

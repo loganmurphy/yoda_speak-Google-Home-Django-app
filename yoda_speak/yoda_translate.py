@@ -10,15 +10,15 @@ from yoda_speak.models import YodaPhrase, Padawan
 
 s3 = boto3.resource(
         's3',
-        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+        # aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+        # aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
     )
 
 polly_client = boto3.client(
         'polly',
         region_name='us-west-2',
-        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+        # aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+        # aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
     )
 
 bucket = s3.Bucket('my-video-project')
