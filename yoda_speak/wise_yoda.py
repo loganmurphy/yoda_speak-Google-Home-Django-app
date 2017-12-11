@@ -2,7 +2,7 @@ from rest_framework.response import Response
 
 import random
 
-# import os
+import os
 
 import boto3
 import botocore
@@ -10,17 +10,17 @@ import botocore
 from yoda_speak.models import YodaPhrase, Padawan
 
 s3 = boto3.resource('s3')
-polly_client = boto3.client('polly')
+polly_client = boto3.client('polly', region_name='us-west-2')
 
 bucket = s3.Bucket('my-video-project')
 
 def yoda_wisdom (request):
     wise_yoda_quotes = [
-        "https://s3.amazonaws.com/my-video-project/mp3/beware.wav", "https://s3.amazonaws.com/my-video-project/mp3/feeltheforce.wav",
-        "https://s3.amazonaws.com/my-video-project/mp3/for_my_ally.wav", "https://s3.amazonaws.com/my-video-project/mp3/powerful.wav",
-        "https://s3.amazonaws.com/my-video-project/mp3/sizemattersnot.wav", "https://s3.amazonaws.com/my-video-project/mp3/throughtheforce.wav",
-        "https://s3.amazonaws.com/my-video-project/mp3/use_the_force.wav", "https://s3.amazonaws.com/my-video-project/mp3/trynot.wav",
-        "https://s3.amazonaws.com/my-video-project/mp3/anger_fear_aggression.wav"
+        'https://s3.amazonaws.com/my-video-project/mp3/beware.wav', 'https://s3.amazonaws.com/my-video-project/mp3/feeltheforce.wav',
+        'https://s3.amazonaws.com/my-video-project/mp3/for_my_ally.wav', 'https://s3.amazonaws.com/my-video-project/mp3/powerful.wav',
+        'https://s3.amazonaws.com/my-video-project/mp3/sizemattersnot.wav', 'https://s3.amazonaws.com/my-video-project/mp3/throughtheforce.wav',
+        'https://s3.amazonaws.com/my-video-project/mp3/use_the_force.wav', 'https://s3.amazonaws.com/my-video-project/mp3/trynot.wav',
+        'https://s3.amazonaws.com/my-video-project/mp3/anger_fear_aggression.wav'
     ]
 
     print(random.choice(wise_yoda_quotes))
@@ -134,7 +134,7 @@ def darkside(request):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\">Beware the darkside of the force!</audio></speak>".format(darkside)
+                    "ssml": "<speak><audio src=\"{}\">Beware the darkside of the force.</audio></speak>".format(darkside)
                   }
                 }
               ]
