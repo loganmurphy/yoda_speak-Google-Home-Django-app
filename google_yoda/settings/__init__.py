@@ -10,6 +10,6 @@ else:
 
 if ENVIRONMENT == 'production':
     from google_yoda.settings.production import *
-
+    print('production')
 else:
     from google_yoda.settings.development import *
