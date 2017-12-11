@@ -60,7 +60,7 @@ def get_age(request):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\"></audio>You, how old are?</speak>".format(how_old)
+                    "ssml": "<speak><audio src=\"{}\">You, how old are?</audio></speak>".format(how_old)
                   }
                 }
               ]
@@ -106,7 +106,7 @@ def my_fortune (request, age):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\"></audio>Your future, read can I!</speak>".format(fortune)
+                    "ssml": "<speak><audio src=\"{}\">Your future, read can I!</audio></speak>".format(fortune)
                   }
                 }
               ]
