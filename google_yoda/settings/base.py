@@ -136,7 +136,8 @@ DATABASES = {
         'HOST': 'ec2-107-22-160-199.compute-1.amazonaws.com',
         'DATABASE': 'd154lfgjapcu2v',
         'USER': 'rdjlskrdbncwyp',
-        'PORT': 5432,
+        'DIALECT': 'postgres',
+        'PORT': 5433,
         'PASSWORD': 'd5197ce71d34d89d5ac1e2dc6a5278c6e92cba85c3255c708ffd8181ecb4c1a9',
         'URI': 'postgres://rdjlskrdbncwyp:d5197ce71d34d89d5ac1e2dc6a5278c6e92cba85c3255c708ffd8181ecb4c1a9@ec2-107-22-160-199.compute-1.amazonaws.com:5432/d154lfgjapcu2v'
     }
