@@ -7,8 +7,16 @@ import botocore
 from yoda_speak.models import YodaPhrase, Padawan
 
 s3 = boto3.resource('s3')
-polly_client = boto3.client('polly', region_name='us-west-2')
-bucket = s3.Bucket('my-video-project')
+polly_client = boto3.client(
+        'polly',
+        region_name='us-west-2',
+        aws_secret_access_key=os.environ['AWS_KEY']
+    )
+
+bucket = s3.Bucket(
+        'my-video-project',
+        aws_secret_access_key=os.environ['AWS_KEY']
+    )
 
 CLIENT = Client("http://www.yodaspeak.co.uk/webservice/yodatalk.php?wsdl")
 
