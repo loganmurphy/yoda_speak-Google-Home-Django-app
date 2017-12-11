@@ -133,7 +133,7 @@ AWS_DEFAULT_REGION = 'us-west-2'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'yoda-speakDB',
+        'NAME': 'd154lfgjapcu2v',
         'HOST': 'ec2-107-22-160-199.compute-1.amazonaws.com',
         'DATABASE': 'd154lfgjapcu2v',
         'USER': 'rdjlskrdbncwyp',
