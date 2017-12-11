@@ -39,7 +39,7 @@ def google_endpoint (request):
     print (requested)
     if intent == 'actions.intent.MAIN' or requested in restart_conversation_commands:
         return start_conversation(request)
-    # else:
+    else:
     #     if (requested.lower() == 'what can I say' or 'options' in requested.lower()):
     #         return get_options(request)
     #     elif (requested.lower() in time_queries):
@@ -66,7 +66,7 @@ def google_endpoint (request):
     #     elif (requested.lower() in end_conversation_commands):
     #         return end_conversation(request)
     #     else:
-    #         return get_phrase(request)
+            return get_phrase(request)
 
 def start_conversation (request):
     response = {
