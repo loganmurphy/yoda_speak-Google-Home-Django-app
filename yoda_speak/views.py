@@ -70,8 +70,6 @@ def google_endpoint (request):
         else:
             return get_phrase(request)
 
-
-
 # @api_view(['GET'])
 # def yoda_get:
     # check for Google token or my front-end webtoken

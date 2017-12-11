@@ -16,11 +16,11 @@ bucket = s3.Bucket('my-video-project')
 
 def yoda_wisdom (request):
     wise_yoda_quotes = [
-        'https://s3.amazonaws.com/my-video-project/mp3/beware.wav', 'https://s3.amazonaws.com/my-video-project/mp3/feeltheforce.wav',
-        'https://s3.amazonaws.com/my-video-project/mp3/for_my_ally.wav', 'https://s3.amazonaws.com/my-video-project/mp3/powerful.wav',
-        'https://s3.amazonaws.com/my-video-project/mp3/sizemattersnot.wav', 'https://s3.amazonaws.com/my-video-project/mp3/throughtheforce.wav',
-        'https://s3.amazonaws.com/my-video-project/mp3/use_the_force.wav', 'https://s3.amazonaws.com/my-video-project/mp3/trynot.wav',
-        'https://s3.amazonaws.com/my-video-project/mp3/anger_fear_aggression.wav'
+        "https://s3.amazonaws.com/my-video-project/mp3/beware.wav", "https://s3.amazonaws.com/my-video-project/mp3/feeltheforce.wav",
+        "https://s3.amazonaws.com/my-video-project/mp3/for_my_ally.wav", "https://s3.amazonaws.com/my-video-project/mp3/powerful.wav",
+        "https://s3.amazonaws.com/my-video-project/mp3/sizemattersnot.wav", "https://s3.amazonaws.com/my-video-project/mp3/throughtheforce.wav",
+        "https://s3.amazonaws.com/my-video-project/mp3/use_the_force.wav", "https://s3.amazonaws.com/my-video-project/mp3/trynot.wav",
+        "https://s3.amazonaws.com/my-video-project/mp3/anger_fear_aggression.wav"
     ]
 
     print(random.choice(wise_yoda_quotes))
