@@ -1,8 +1,6 @@
 from rest_framework.response import Response
 from suds.client import Client
 
-# import os
-
 import boto3
 import botocore
 
