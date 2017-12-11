@@ -52,9 +52,10 @@ def get_phrase(request):
                 )
                 response_id = response['ResponseMetadata']['RequestId']
                 response_blob = response['AudioStream']
-
+                print(response_id)
                 upload = s3.meta.client.upload_fileobj(response_blob, 'my-video-project', 'mp3/{}.mp3'.format(response_id))
                 yoda_mp3_link = "mp3/{}.mp3".format(response_id)
+                print('uploaded')
 
                 object_acl = s3.ObjectAcl('my-video-project', '{}'.format(yoda_mp3_link))
                 boto_response = object_acl.put(ACL='public-read')
@@ -83,10 +84,11 @@ def get_phrase(request):
                 )
                 response_id = response['ResponseMetadata']['RequestId']
                 response_blob = response['AudioStream']
+                print(response_id)
 
                 upload = s3.meta.client.upload_fileobj(response_blob, 'my-video-project', 'mp3/{}.mp3'.format(response_id))
                 yoda_mp3_link = "mp3/{}.mp3".format(response_id)
-
+                print('uploaded')
                 object_acl = s3.ObjectAcl('my-video-project', '{}'.format(yoda_mp3_link))
                 boto_response = object_acl.put(ACL='public-read')
                 # yoda_phrase.url = response_id
@@ -97,7 +99,7 @@ def get_phrase(request):
                 print('aleady created', yoda_phrase.url)
 
 
-    # django storage package
+    # django storages package
     # yp = YodaPhrase(text=untranslated_text, padawan=padawan)
     # yp.mp3.upload('filename', response_blob)
     # yp.save()
