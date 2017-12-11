@@ -33,7 +33,7 @@ def yoda_wisdom (request):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\"></audio>From Master Yoda, learn you must.</speak>".format(quote)
+                    "ssml": "<speak><audio src=\"{}\">From Master Yoda, learn you must.</audio></speak>".format(quote)
                   }
                 }
               ]
