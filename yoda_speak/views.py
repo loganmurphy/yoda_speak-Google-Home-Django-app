@@ -8,7 +8,7 @@ from yoda_speak.wise_yoda import yoda_wisdom, get_age, my_fortune, darkside
 from yoda_speak.yoda_sing import seagull_song, happy_bday, christmas_carol
 from yoda_speak.yoda_time import ask_time, ask_day
 from yoda_speak.yoda_translate import get_phrase, sith_vs_jedi
-from yoda_speak.options import get_options
+# from yoda_speak.options import get_options
 from yoda_speak.conversation import start_conversation, end_conversation
 
 # add webtokens for authentication(either from Google or from my web app)?
