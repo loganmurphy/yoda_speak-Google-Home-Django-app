@@ -2,7 +2,7 @@ from rest_framework.response import Response
 
 import random
 
-import os
+# import os
 
 import boto3
 import botocore
@@ -10,7 +10,7 @@ import botocore
 from yoda_speak.models import YodaPhrase, Padawan
 
 s3 = boto3.resource('s3')
-polly_client = boto3.client('polly', region_name='us-west-2')
+polly_client = boto3.client('polly')
 
 bucket = s3.Bucket('my-video-project')
 
