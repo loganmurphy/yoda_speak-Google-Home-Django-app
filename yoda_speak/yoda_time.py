@@ -22,7 +22,7 @@ def ask_time (request):
     now = tz_now.astimezone(central).time().isoformat()
     temp_now = now[0:5]
     now = temp_now
-
+# 00 should be 12
     if int(now[0:2]) < 7 and int(now[0:2]) > 4:
         yoda_message = 'Early it is, much time for training, still have we!'
     elif int(now[0:2]) >= 12 and int(now[0:2]) < 13:
@@ -79,7 +79,6 @@ def ask_time (request):
     return r
 
 def ask_day (request):
-  # what day is it?
     days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     day = tz_now.astimezone(central).weekday()
     today = days_of_week[day]

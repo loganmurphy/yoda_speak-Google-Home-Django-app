@@ -1,32 +1,16 @@
 from rest_framework.response import Response
 from suds.client import Client
 
-import os
+# import os
 
 import boto3
 import botocore
 
 from yoda_speak.models import YodaPhrase, Padawan
 
-s3 = boto3.resource(
-        's3',
-        # aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-        # aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-    )
-
-polly_client = boto3.client(
-        'polly',
-        region_name='us-west-2',
-        # aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-        # aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-    )
-
+s3 = boto3.resource('s3')
+polly_client = boto3.client('polly')
 bucket = s3.Bucket('my-video-project')
-
-
-for bucket in s3.buckets.all():
-    print(bucket.name)
-print('just tested')
 
 CLIENT = Client("http://www.yodaspeak.co.uk/webservice/yodatalk.php?wsdl")
 
@@ -122,7 +106,6 @@ def get_phrase(request):
               'items': [
                 {
                   'simpleResponse': {
-                    # "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/{}.mp3\">{}</audio></speak>".format(yoda_phrase.url, result)
                     "ssml": "<speak><audio src=\"{}\">{}</audio></speak>".format(yoda_phrase.url, result)
                   }
                 }

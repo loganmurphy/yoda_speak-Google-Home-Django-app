@@ -2,13 +2,15 @@ from rest_framework.response import Response
 
 import random
 
+import os
+
 import boto3
 import botocore
 
 from yoda_speak.models import YodaPhrase, Padawan
 
 s3 = boto3.resource('s3')
-polly_client = boto3.client('polly')
+polly_client = boto3.client('polly', region_name='us-west-2')
 
 bucket = s3.Bucket('my-video-project')
 
@@ -33,7 +35,7 @@ def yoda_wisdom (request):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\"></audio></speak>".format(quote)
+                    "ssml": "<speak><audio src=\"{}\"></audio>From Master Yoda, learn you must.</speak>".format(quote)
                   }
                 }
               ]
@@ -60,7 +62,7 @@ def get_age(request):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\"></audio></speak>".format(how_old)
+                    "ssml": "<speak><audio src=\"{}\"></audio>You, how old are?</speak>".format(how_old)
                   }
                 }
               ]
@@ -106,8 +108,33 @@ def my_fortune (request, age):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\"></audio></speak>".format(fortune)
-                    # "ssml": "<speak><audio src=\"{}\"></audio></speak>".format(five_dollars),
+                    "ssml": "<speak><audio src=\"{}\"></audio>Your future, read can I!</speak>".format(fortune)
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+
+    r = Response(response)
+    r['Google-Assistant-API-Version'] = 'v2'
+    return r
+
+def darkside(request):
+    darkside = "https://s3.amazonaws.com/my-video-project/mp3/darkside.webm"
+    response = {
+      'expectUserResponse': True,
+      'expectedInputs': [
+        {
+          'possibleIntents': {'intent': 'actions.intent.TEXT'},
+          'inputPrompt': {
+            'richInitialPrompt': {
+              'items': [
+                {
+                  'simpleResponse': {
+                    "ssml": "<speak><audio src=\"{}\">Beware the darkside of the force!</audio></speak>".format(darkside)
                   }
                 }
               ]

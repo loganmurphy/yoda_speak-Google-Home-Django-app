@@ -4,11 +4,12 @@ from yoda_speak.models import YodaPhrase, Padawan
 
 from django.utils import timezone
 
-from yoda_speak.wise_yoda import yoda_wisdom, get_age, my_fortune
+from yoda_speak.wise_yoda import yoda_wisdom, get_age, my_fortune, darkside
 from yoda_speak.yoda_sing import seagull_song, happy_bday, christmas_carol
 from yoda_speak.yoda_time import ask_time, ask_day
-from yoda_speak.yoda_translate import get_phrase
-# , sith_vs_jedi
+from yoda_speak.yoda_translate import get_phrase, sith_vs_jedi
+from yoda_speak.options import get_options
+from yoda_speak.conversation import start_conversation, end_conversation
 
 # add webtokens for authentication(either from Google or from my web app)?
 # import serializers?
@@ -17,11 +18,11 @@ from yoda_speak.yoda_translate import get_phrase
 def google_endpoint (request):
     print('request', request.data)
 
-    # user_id = request.data['user']['userId']
-    # padawan = Padawan.objects.get(userID = user_id)
-    # # yoda_phrase = YodaPhrase.objects.filter(padawan = padawan).order_by('-created')[:1]
-    # jedi_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
-    # sith_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
+    user_id = request.data['user']['userId']
+    padawan = Padawan.objects.get(userID = user_id)
+    # yoda_phrase = YodaPhrase.objects.filter(padawan = padawan).order_by('-created')[:1]
+    jedi_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
+    sith_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
 
     time_queries = ["what time is it Yoda", "what time is it", "what's the time"]
     day_queries = ["what day is it Yoda", "what day is it today", "what day is it"]
@@ -36,12 +37,6 @@ def google_endpoint (request):
     restart_conversation_commands = ['hey yoda', 'hey, yoda']
     requested = request.data['inputs'][0]['rawInputs'][0]['query']
     intent = request.data['inputs'][0]['intent']
-
-
-    # test Heroku DB
-    # user_id = request.data['user']['userId']
-    # padawan, created = Padawan.objects.get_or_create(userID=user_id)
-    # print('DATABASE TEST HERE!!!!', padawan)
 
     print (requested)
     if intent == 'actions.intent.MAIN' or requested in restart_conversation_commands:
@@ -75,110 +70,7 @@ def google_endpoint (request):
         else:
             return get_phrase(request)
 
-def start_conversation (request):
-    response = {
-      'expectUserResponse': True,
-      'expectedInputs': [
-        {
-          'possibleIntents': {'intent': 'actions.intent.TEXT'},
-          'inputPrompt': {
-            'richInitialPrompt': {
-              'items': [
-                {
-                  'simpleResponse': {
-                    "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/yoda_help.mp3\">Help you I can, yes.</audio></speak>"
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ]
-    }
 
-    r = Response(response)
-    r['Google-Assistant-API-Version'] = 'v2'
-    return r
-
-def get_options(request):
-    # options = """"Teach you to speak like me, can I. If you are Sith or Jedi, tell you can I.
-    #   What day it is, ask me. What time it is, ask me. Your fortune, ask me.
-    #   For wisdom, ask me. Happy birthday, for you I will sing. Merry Christmas, too will I sing."""
-    options = "https://s3.amazonaws.com/my-video-project/mp3/%22Teach+you+to+speak+like+me%2C+can+I.+If+you+are+Sith+or+Jedi%2C+tell+you+can+I.%0A++++++What+day+it+is%2C+ask+me.+What+time+it+is%2C+ask+me.+Your+fortune%2C+ask+me.%0A++++++For+wisdom%2C+ask+me.+Happy+birthday%2C+for+you+I+will+sing.+Merry+Christmas%2C+too+will+I+sing..mp3"
-    response = {
-      'expectUserResponse': True,
-      'expectedInputs': [
-        {
-          'possibleIntents': {'intent': 'actions.intent.TEXT'},
-          'inputPrompt': {
-            'richInitialPrompt': {
-              'items': [
-                {
-                  'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\">Options, yes, many options have you.</audio></speak>".format(options)
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ]
-    }
-
-    r = Response(response)
-    r['Google-Assistant-API-Version'] = 'v2'
-    return r
-
-def darkside(request):
-    darkside = "https://s3.amazonaws.com/my-video-project/mp3/darkside.webm"
-    response = {
-      'expectUserResponse': True,
-      'expectedInputs': [
-        {
-          'possibleIntents': {'intent': 'actions.intent.TEXT'},
-          'inputPrompt': {
-            'richInitialPrompt': {
-              'items': [
-                {
-                  'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\">Beware the darkside of the force.</audio></speak>".format(darkside)
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ]
-    }
-
-    r = Response(response)
-    r['Google-Assistant-API-Version'] = 'v2'
-    return r
-
-def end_conversation(response):
-    response = {
-      'expectUserResponse': False,
-      'expectedInputs': [
-        {
-          'possibleIntents': {'intent': 'actions.intent.TEXT'},
-          'inputPrompt': {
-            'richInitialPrompt': {
-              'items': [
-                {
-                  'simpleResponse': {
-                    "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/end_conversation.mp3\"></audio></speak>"
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ]
-    }
-
-    r = Response(response)
-    r['Google-Assistant-API-Version'] = 'v2'
-    return r
 
 # @api_view(['GET'])
 # def yoda_get:
