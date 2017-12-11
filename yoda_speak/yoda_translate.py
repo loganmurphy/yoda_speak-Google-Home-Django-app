@@ -10,14 +10,14 @@ from yoda_speak.models import YodaPhrase, Padawan
 
 s3 = boto3.resource(
         's3',
-        aws_access_key_id=os.environ.get('AWS_KEY');
+        aws_access_key_id=os.environ.get('AWS_KEY'),
         aws_secret_access_key=os.environ.get('AWS_SECRET_KEY')
     )
 
 polly_client = boto3.client(
         'polly',
         region_name='us-west-2',
-        aws_access_key_id=os.environ.get('AWS_KEY');
+        aws_access_key_id=os.environ.get('AWS_KEY'),
         aws_secret_access_key=os.environ.get('AWS_SECRET_KEY')
     )
 
