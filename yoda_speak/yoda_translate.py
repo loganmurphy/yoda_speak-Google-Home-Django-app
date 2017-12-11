@@ -52,7 +52,8 @@ def get_phrase(request):
                 )
                 response_id = response['ResponseMetadata']['RequestId']
                 response_blob = response['AudioStream']
-                print(response_id)
+                print('polly response', response_id)
+
                 upload = s3.meta.client.upload_fileobj(response_blob, 'my-video-project', 'mp3/{}.mp3'.format(response_id))
                 yoda_mp3_link = "mp3/{}.mp3".format(response_id)
                 print('uploaded')
@@ -84,7 +85,7 @@ def get_phrase(request):
                 )
                 response_id = response['ResponseMetadata']['RequestId']
                 response_blob = response['AudioStream']
-                print(response_id)
+                print('polly response', response_id)
 
                 upload = s3.meta.client.upload_fileobj(response_blob, 'my-video-project', 'mp3/{}.mp3'.format(response_id))
                 yoda_mp3_link = "mp3/{}.mp3".format(response_id)
