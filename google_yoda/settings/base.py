@@ -133,3 +133,4 @@ AWS_DEFAULT_REGION = 'us-west-2'
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config("postgres://rdjlskrdbncwyp:d5197ce71d34d89d5ac1e2dc6a5278c6e92cba85c3255c708ffd8181ecb4c1a9@ec2-107-22-160-199.compute-1.amazonaws.com:5433/d154lfgjapcu2v")
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+DATABASES['default']['NAME'] = 'd154lfgjapcu2v'
