@@ -20,4 +20,5 @@ import yoda_speak.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('translate', yoda_speak.views.google_endpoint),
+    path('', yoda_speak.views.google_endpoint),
 ]
