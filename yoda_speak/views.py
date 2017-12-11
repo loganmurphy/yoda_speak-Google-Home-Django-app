@@ -36,37 +36,37 @@ def google_endpoint (request):
     restart_conversation_commands = ['hey yoda', 'hey, yoda']
     requested = request.data['inputs'][0]['rawInputs'][0]['query']
     intent = request.data['inputs'][0]['intent']
-    
+    print (requested)
     if intent == 'actions.intent.MAIN' or requested in restart_conversation_commands:
         return start_conversation(request)
-    else:
-        if (requested.lower() == 'what can I say' or 'options' in requested.lower()):
-            return get_options(request)
-        elif (requested.lower() in time_queries):
-            return ask_time(request)
-        elif (requested.lower() in day_queries):
-            return ask_day(request)
-        elif ('wisdom' in requested.lower()):
-            return yoda_wisdom(request)
-        elif ('fortune' in requested.lower()):
-            return get_age(request)
-        elif (requested.isdigit() == True):
-            age = int(requested)
-            return my_fortune(request, age)
-        elif ('seagull song' in requested):
-            return seagull_song(request)
-        elif (requested.lower() in birthday_queries):
-            return happy_bday(request)
-        elif (requested.lower() in christmas_queries):
-            return christmas_carol(request)
-        # elif (requested.lower() in dark_vs_light_queries):
-        #     return sith_vs_jedi(request, jedi_score, sith_score)
-        elif (requested.lower() in swear_word_check):
-            return darkside(request)
-        elif (requested.lower() in end_conversation_commands):
-            return end_conversation(request)
-        else:
-            return get_phrase(request)
+    # else:
+    #     if (requested.lower() == 'what can I say' or 'options' in requested.lower()):
+    #         return get_options(request)
+    #     elif (requested.lower() in time_queries):
+    #         return ask_time(request)
+    #     elif (requested.lower() in day_queries):
+    #         return ask_day(request)
+    #     elif ('wisdom' in requested.lower()):
+    #         return yoda_wisdom(request)
+    #     elif ('fortune' in requested.lower()):
+    #         return get_age(request)
+    #     elif (requested.isdigit() == True):
+    #         age = int(requested)
+    #         return my_fortune(request, age)
+    #     elif ('seagull song' in requested):
+    #         return seagull_song(request)
+    #     elif (requested.lower() in birthday_queries):
+    #         return happy_bday(request)
+    #     elif (requested.lower() in christmas_queries):
+    #         return christmas_carol(request)
+    #     # elif (requested.lower() in dark_vs_light_queries):
+    #     #     return sith_vs_jedi(request, jedi_score, sith_score)
+    #     elif (requested.lower() in swear_word_check):
+    #         return darkside(request)
+    #     elif (requested.lower() in end_conversation_commands):
+    #         return end_conversation(request)
+    #     else:
+    #         return get_phrase(request)
 
 def start_conversation (request):
     response = {
