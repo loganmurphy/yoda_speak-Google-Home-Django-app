@@ -50,9 +50,10 @@ def get_phrase(request):
                     TextType='ssml',
                     VoiceId='Matthew'
                 )
+                print('polly response', response_id)
+
                 response_id = response['ResponseMetadata']['RequestId']
                 response_blob = response['AudioStream']
-                print('polly response', response_id)
 
                 upload = s3.meta.client.upload_fileobj(response_blob, 'my-video-project', 'mp3/{}.mp3'.format(response_id))
                 yoda_mp3_link = "mp3/{}.mp3".format(response_id)
