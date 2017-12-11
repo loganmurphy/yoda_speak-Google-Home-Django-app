@@ -36,6 +36,13 @@ def google_endpoint (request):
     restart_conversation_commands = ['hey yoda', 'hey, yoda']
     requested = request.data['inputs'][0]['rawInputs'][0]['query']
     intent = request.data['inputs'][0]['intent']
+
+
+    # test Heroku DB
+    user_id = request.data['user']['userId']
+    padawan, created = Padawan.objects.get_or_create(userID=user_id)
+
+
     print (requested)
     if intent == 'actions.intent.MAIN' or requested in restart_conversation_commands:
         return start_conversation(request)
@@ -59,8 +66,8 @@ def google_endpoint (request):
             return happy_bday(request)
         elif (requested.lower() in christmas_queries):
             return christmas_carol(request)
-        # elif (requested.lower() in dark_vs_light_queries):
-        #     return sith_vs_jedi(request, jedi_score, sith_score)
+        elif (requested.lower() in dark_vs_light_queries):
+            return sith_vs_jedi(request, jedi_score, sith_score)
         elif (requested.lower() in swear_word_check):
             return darkside(request)
         elif (requested.lower() in end_conversation_commands):

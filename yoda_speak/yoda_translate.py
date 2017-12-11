@@ -115,35 +115,35 @@ def get_phrase(request):
     r['Google-Assistant-API-Version'] = 'v2'
     return r
 
-# def sith_vs_jedi(response, jedi_score, sith_score):
-#     jedi_score = jedi_score
-#     sith_score = sith_score
-#     print(jedi_score, sith_score)
-#     if jedi_score > sith_score:
-#         response = "https://s3.amazonaws.com/my-video-project/mp3/you_are_a_jedi.mp3"
-#     else:
-#         response = "https://s3.amazonaws.com/my-video-project/mp3/you_are_a_sith.mp3"
-#
-#     response = {
-#       'expectUserResponse': True,
-#       'expectedInputs': [
-#         {
-#           'possibleIntents': {'intent': 'actions.intent.TEXT'},
-#           'inputPrompt': {
-#             'richInitialPrompt': {
-#               'items': [
-#                 {
-#                   'simpleResponse': {
-#                     "ssml": "<speak><audio src=\"{}\"></audio></speak>".format(response)
-#                   }
-#                 }
-#               ]
-#             }
-#           }
-#         }
-#       ]
-#     }
-#
-#     r = Response(response)
-#     r['Google-Assistant-API-Version'] = 'v2'
-#     return r
+def sith_vs_jedi(response, jedi_score, sith_score):
+    jedi_score = jedi_score
+    sith_score = sith_score
+    print(jedi_score, sith_score)
+    if jedi_score > sith_score:
+        response = "https://s3.amazonaws.com/my-video-project/mp3/you_are_a_jedi.mp3"
+    else:
+        response = "https://s3.amazonaws.com/my-video-project/mp3/you_are_a_sith.mp3"
+
+    response = {
+      'expectUserResponse': True,
+      'expectedInputs': [
+        {
+          'possibleIntents': {'intent': 'actions.intent.TEXT'},
+          'inputPrompt': {
+            'richInitialPrompt': {
+              'items': [
+                {
+                  'simpleResponse': {
+                    "ssml": "<speak><audio src=\"{}\"></audio></speak>".format(response)
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+
+    r = Response(response)
+    r['Google-Assistant-API-Version'] = 'v2'
+    return r
