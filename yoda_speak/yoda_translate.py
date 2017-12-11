@@ -12,12 +12,14 @@ s3 = boto3.resource('s3')
 polly_client = boto3.client(
         'polly',
         region_name='us-west-2',
-        aws_secret_access_key=os.environ['AWS_KEY']
+        aws_access_key_id=os.environ['AWS_KEY'],
+        aws_secret_access_key=os.environ['SECRET_KEY']
     )
 
 bucket = s3.Bucket(
         'my-video-project',
-        aws_secret_access_key=os.environ['AWS_KEY']
+        aws_access_key_id=os.environ['AWS_KEY'],
+        aws_secret_access_key=os.environ['SECRET_KEY']
     )
 
 CLIENT = Client("http://www.yodaspeak.co.uk/webservice/yodatalk.php?wsdl")
