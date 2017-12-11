@@ -81,7 +81,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'google_yoda.wsgi.application'
 
 
-# DATABASES = {
+DATABASES = {}
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'd154lfgjapcu2v',
