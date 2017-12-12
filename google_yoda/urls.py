@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('translate', yoda_speak.views.google_endpoint),
     path('', yoda_speak.views.google_endpoint),
+    path('statistics', yoda_speak.views.yoda_get)
 ]
