@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from yoda_speak.models import YodaPhrase, Padawan
 
 from django.utils import timezone
@@ -70,7 +70,9 @@ def google_endpoint (request):
             return get_phrase(request)
 
 @api_view(['GET'])
+@permission_classes((AllowAny, ))
 def yoda_get (request):
+    print(request.data)
     yoda_phrase = YodaPhrase.objects.order_by('-created')[:10]
     return yoda_phrase
 
