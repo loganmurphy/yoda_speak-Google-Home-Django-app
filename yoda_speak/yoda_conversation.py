@@ -29,25 +29,43 @@ def start_conversation (request):
 
 
 def end_conversation(response):
+    # response = {
+    #   'expectUserResponse': False,
+    #   'expectedInputs': [
+    #     {
+    #       'possibleIntents': {'intent': 'actions.intent.TEXT'},
+    #       'inputPrompt': {
+    #         'richInitialPrompt': {
+    #           'items': [
+    #             {
+    #               'simpleResponse': {
+    #                 "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/may_the_force_be_with_you.webm\"></audio>May the Forece be with you.</speak>"
+    #               }
+    #             }
+    #           ]
+    #         }
+    #       }
+    #     }
+    #   ]
+    # }
+
+
     response = {
       'expectUserResponse': False,
-      'expectedInputs': [
-        {
-          'possibleIntents': {'intent': 'actions.intent.TEXT'},
-          'inputPrompt': {
-            'richInitialPrompt': {
-              'items': [
-                {
-                  'simpleResponse': {
-                    "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/may_the_force_be_with_you.webm\"></audio>May the Forece be with you.</speak>"
-                  }
-                }
-              ]
+      'finalResponse': {
+        'richResponse': {
+          'items': [
+            {
+              'simpleResponse': {
+                "ssml": "<speak><audio src=\"https://s3.amazonaws.com/my-video-project/mp3/may_the_force_be_with_you.webm\"></audio>May the Forece be with you.</speak>"
+              }
             }
-          }
+          ]
         }
-      ]
+      }
     }
+
+
 
     r = Response(response)
     r['Google-Assistant-API-Version'] = 'v2'
