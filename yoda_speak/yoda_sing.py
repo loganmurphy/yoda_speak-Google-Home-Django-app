@@ -12,7 +12,7 @@ def happy_bday (request):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\">Seagulls!</audio></speak>".format(yoda_bday)
+                    "ssml": "<speak><audio src=\"{}\">To you, happy birthday.</audio></speak>".format(yoda_bday)
                   }
                 }
               ]
@@ -38,7 +38,7 @@ def christmas_carol (request):
               'items': [
                 {
                   'simpleResponse': {
-                    "ssml": "<speak><audio src=\"{}\">Seagulls!</audio></speak>".format(yoda_christmas)
+                    "ssml": "<speak><audio src=\"{}\">You a merry Christmas, we wish.</audio></speak>".format(yoda_christmas)
                   }
                 }
               ]

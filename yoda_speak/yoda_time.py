@@ -22,7 +22,7 @@ def ask_time (request):
     now = tz_now.astimezone(central).time().isoformat()
     temp_now = now[0:5]
     now = temp_now
-# 00 should be 12
+
     if int(now[0:2]) < 7 and int(now[0:2]) > 4:
         yoda_message = 'Early it is, much time for training, still have we!'
     elif int(now[0:2]) >= 12 and int(now[0:2]) < 13:
@@ -34,6 +34,8 @@ def ask_time (request):
 
     if int(now[0:2]) > 12:
         yoda_time = str(int(now[0:2]) - 12) + now[2:]
+    elif int(now[0:2] == 00):
+        yoda_time = '12' + now[2:]
     else:
         yoda_time = now
     print(yoda_time)
@@ -122,6 +124,3 @@ def ask_day (request):
     r = Response(response)
     r['Google-Assistant-API-Version'] = 'v2'
     return r
-
-# def yoda_reminder (request):
-    # add reminders to your calendar

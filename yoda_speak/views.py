@@ -22,7 +22,7 @@ def google_endpoint (request):
     padawan = Padawan.objects.get(userID = user_id)
     # yoda_phrase = YodaPhrase.objects.filter(padawan = padawan).order_by('-created')[:1]
     jedi_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
-    sith_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
+    sith_score = YodaPhrase.objects.filter(padawan = padawan).filter(sith=True).count()
 
     time_queries = ["what time is it Yoda", "what time is it", "what's the time"]
     day_queries = ["what day is it Yoda", "what day is it today", "what day is it"]
@@ -72,8 +72,8 @@ def google_endpoint (request):
 
 # @api_view(['GET'])
 # def yoda_get:
-    # check for Google token or my front-end webtoken
-    # make yoda api call here
+#     check for Google token or my front-end webtoken
+#     make yoda api call here
 
 # @api_view(['POST'])
 # def yoda_post:

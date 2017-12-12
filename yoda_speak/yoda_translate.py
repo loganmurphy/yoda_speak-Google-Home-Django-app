@@ -48,7 +48,6 @@ def get_phrase(request):
 
                 object_acl = s3.ObjectAcl('my-video-project', '{}'.format(yoda_mp3_link))
                 boto_response = object_acl.put(ACL='public-read')
-                # yoda_phrase.url = "https://s3.amazonaws.com/my-video-project/mp3/{}.mp3".format(response_id)
                 yoda_phrase.url = "https://s3.amazonaws.com/my-video-project/mp3/{}.mp3".format(response_id)
 
                 yoda_phrase.save()
@@ -80,19 +79,12 @@ def get_phrase(request):
                 print('uploaded')
                 object_acl = s3.ObjectAcl('my-video-project', '{}'.format(yoda_mp3_link))
                 boto_response = object_acl.put(ACL='public-read')
-                # yoda_phrase.url = response_id
                 yoda_phrase.url = "https://s3.amazonaws.com/my-video-project/mp3/{}.mp3".format(response_id)
                 yoda_phrase.save()
 
             else:
                 print('aleady created', yoda_phrase.url)
 
-
-    # django storages package
-    # yp = YodaPhrase(text=untranslated_text, padawan=padawan)
-    # yp.mp3.upload('filename', response_blob)
-    # yp.save()
-    # yp.mp3.url
 
     response = {
       'expectUserResponse': True,
