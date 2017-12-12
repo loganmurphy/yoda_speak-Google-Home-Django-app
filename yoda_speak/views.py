@@ -20,7 +20,6 @@ def google_endpoint (request):
 
     user_id = request.data['user']['userId']
     padawan = Padawan.objects.get(userID = user_id)
-    # yoda_phrase = YodaPhrase.objects.filter(padawan = padawan).order_by('-created')[:1]
     jedi_score = YodaPhrase.objects.filter(padawan = padawan).filter(jedi=True).count()
     sith_score = YodaPhrase.objects.filter(padawan = padawan).filter(sith=True).count()
 
@@ -70,10 +69,10 @@ def google_endpoint (request):
         else:
             return get_phrase(request)
 
-# @api_view(['GET'])
-# def yoda_get:
-#     check for Google token or my front-end webtoken
-#     make yoda api call here
+@api_view(['GET'])
+def yoda_get:
+    yoda_phrase = YodaPhrase.objects.order_by('-created')[:10]
+    return yoda_phrase
 
 # @api_view(['POST'])
 # def yoda_post:
