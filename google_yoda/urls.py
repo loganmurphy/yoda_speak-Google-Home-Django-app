@@ -15,6 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from graphene_django.views import GraphQLView
+from blog.schema import read_schema, write_schema, \
+                        PrivateGraphQLView
+from django.views.decorators.csrf import csrf_exempt
+
 import yoda_speak.views
 
 urlpatterns = [
@@ -22,4 +28,8 @@ urlpatterns = [
     path('translate', yoda_speak.views.google_endpoint),
     path('', yoda_speak.views.google_endpoint),
     path('statistics', yoda_speak.views.yoda_get),
+    path('graphql', csrf_exempt(
+        GraphQLView.as_view(graphiql=True, schema=schema)
+      )
+    ),
 ]
