@@ -1,9 +1,12 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-from yoda_speak.models import YodaPhrase, Padawan
 
 from django.utils import timezone
+
+from yoda_speak.models import YodaPhrase, Padawan
+from yoda_speak.serializers import YodaPhraseSerializer
+
 
 from yoda_speak.wise_yoda import yoda_wisdom, get_age, my_fortune, darkside
 from yoda_speak.yoda_sing import seagull_song, happy_bday, christmas_carol
@@ -70,12 +73,20 @@ def google_endpoint (request):
         else:
             return get_phrase(request)
 
+
+def post_list (request, slug):
+  posts = Post.objects.filter(blog__slug=slug)
+  serializer = PostSerializer(posts, many=True)
+  return Response(serializer.data)
+
+
 @api_view(['GET'])
 @permission_classes((AllowAny, ))
 def yoda_get (request):
     print(request.data)
-    yoda_phrase = YodaPhrase.objects.order_by('-created')[:10]
-    return yoda_phrase
+    yoda_phrases = YodaPhrase.objects.all()
+    serializer = YodaPhraseSerializer(yoda_phrases, many=True)
+    return Response(serializer.data)
 
 # @api_view(['POST'])
 # def yoda_post:

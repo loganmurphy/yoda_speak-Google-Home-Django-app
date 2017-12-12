@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'djzen',
     'django_uwsgi',
     'rest_framework',
+    'graphene_django',
     'yoda_speak',
 ]
 
@@ -80,6 +81,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'google_yoda.wsgi.application'
 
+GRAPHENE = {
+'SCHEMA': 'yoda_speak.schema.schema'
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

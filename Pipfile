@@ -17,6 +17,9 @@ awscli = "*"
 gunicorn = "*"
 dj-database-url = "*"
 postgres = "*"
+django-filter = "*"
+graphene = "*"
+graphene-django = {git = "git://github.com/pizzapanther/graphene-django.git", editable = true}
 
 
 [dev-packages]
