@@ -17,9 +17,6 @@ class YodaPhraseNode(DjangoObjectType):
 
 class Query(ObjectType):
     all_yoda_phrases = DjangoFilterConnectionField(YodaPhraseNode)
-    # def resolve_all_yoda_phrases (self, info):
-    #
-    #     return Post.objects.filter(author=info.context.user)
 
 from graphene_django.views import GraphQLView
 

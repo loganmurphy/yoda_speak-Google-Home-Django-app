@@ -15,8 +15,6 @@ from yoda_speak.yoda_translate import get_phrase, sith_vs_jedi
 from yoda_speak.yoda_options import get_options
 from yoda_speak.yoda_conversation import start_conversation, end_conversation
 
-# add webtokens for authentication(either from Google or from my web app)?
-# import serializers?
 
 @api_view(['GET', 'POST'])
 def google_endpoint (request):
@@ -74,12 +72,6 @@ def google_endpoint (request):
             return get_phrase(request)
 
 
-def post_list (request, slug):
-  posts = Post.objects.filter(blog__slug=slug)
-  serializer = PostSerializer(posts, many=True)
-  return Response(serializer.data)
-
-
 @api_view(['GET'])
 @permission_classes((AllowAny, ))
 def yoda_get (request):
@@ -87,7 +79,3 @@ def yoda_get (request):
     yoda_phrases = YodaPhrase.objects.all()
     serializer = YodaPhraseSerializer(yoda_phrases, many=True)
     return Response(serializer.data)
-
-# @api_view(['POST'])
-# def yoda_post:
-    # return response in speech to front-end

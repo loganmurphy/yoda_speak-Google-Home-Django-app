@@ -4,8 +4,6 @@ from yoda_speak.models import YodaPhrase
 
 
 class YodaPhraseSerializer(serializers.ModelSerializer):
-  author_id = serializers.IntegerField(required=True)
-  blog_id = serializers.IntegerField(required=True)
   class Meta:
       model = YodaPhrase
       fields = ('phrase', 'translation', 'jedi', 'sith', 'created', 'url', 'padawan')

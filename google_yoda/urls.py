@@ -17,8 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from graphene_django.views import GraphQLView
-from blog.schema import read_schema, write_schema, \
-                        PrivateGraphQLView
+from yoda_speak.schema import schema
 from django.views.decorators.csrf import csrf_exempt
 
 import yoda_speak.views
