@@ -70,7 +70,7 @@ def google_endpoint (request):
             return get_phrase(request)
 
 @api_view(['GET'])
-def yoda_get (resquest):
+def yoda_get (request):
     yoda_phrase = YodaPhrase.objects.order_by('-created')[:10]
     return yoda_phrase
 
